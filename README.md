@@ -78,29 +78,33 @@ Python 3
 ## Usage
 
 This early build of the script can help simplify scraping websites and saving the output to a json file. 
-
-1. Open the input.xlsx file
-2. fill out the values:
-  A. start_url
-    The complete URL of the website you would like to scrape 
+<ol>
+<li>Open the input.xlsx file</li>
+<li>fill out the values:</li>
+<ul>
+  <li><h4>A. start_url</h4></li>
+    <p>The complete URL of the website you would like to scrape </p>
     
-  B. item_links
-    Boolean Value to indicate if the scraper needs to access nested URL's to retrieve information from the items to scrape.
+   <li><h4>B. item_links</h4></li>
+    <p>Boolean Value to indicate if the scraper needs to access nested URL's to retrieve information from the items to scrape.</p>
  
-  C. item_css
-    CSS or XPATH selector pointing to all the items in the page that need to be scraped. 
+   <li><h4>C. item_css</h4></li>
+    <p>CSS or XPATH selector pointing to all the items in the page that need to be scraped. </p>
     
-  D. next_page_url
-    CSS or XPATH selector pointing to the link or button that leads to the next page. 
+   <li><h4>D. next_page_url</h4></li>
+    <p>CSS or XPATH selector pointing to the link or button that leads to the next page. </p>
     
-  E. next_page_url_add
-    text addition to above mentioned selector indicating the element type that contains the actual URL to the next page.
-    Is "href" in most cases.
+  <li><h4>E. next_page_url_add</h4></li>
+    <p>text addition to above mentioned selector indicating the element type that contains the actual URL to the next page.
+    Is "href" in most cases.</p>
     
-  F. attributes_dict
-    A string that contains names and associated selector's of the item values/information that need to be scraped. 
-    Format is : "name1:selector1,name2:selector2,name3:selector3". 
-
+   <li><h4>F. attributes_dict </h4>
+    <p>String that contains names and associated selector's of the item values/information that need to be scraped. 
+    Format is : "name1:selector1,name2:selector2,name3:selector3".</p></li>
+  </ul>
+<li>Save the input file and run the exe file.</li>
+<li>.....</li>
+</ol>
 
 <!-- ROADMAP -->
 ## Roadmap
