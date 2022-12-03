@@ -42,7 +42,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
@@ -53,12 +52,13 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Simply download the "input.xlsx" and "scrapescript.exe" files from the Releases. 
+
+In case you want to build the repo yourself check below.
 
 ### Prerequisites
 
-None
+Python 3 
 
 ### Installation
 
@@ -77,12 +77,29 @@ None
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This early build of the script can help simplify scraping websites and saving the output to a json file. 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+1. Open the input.xlsx file
+2. fill out the values:
+  A. start_url
+    The complete URL of the website you would like to scrape 
+    
+  B. item_links
+    Boolean Value to indicate if the scraper needs to access nested URL's to retrieve information from the items to scrape.
+ 
+  C. item_css
+    CSS or XPATH selector pointing to all the items in the page that need to be scraped. 
+    
+  D. next_page_url
+    CSS or XPATH selector pointing to the link or button that leads to the next page. 
+    
+  E. next_page_url_add
+    text addition to above mentioned selector indicating the element type that contains the actual URL to the next page.
+    Is "href" in most cases.
+    
+  F. attributes_dict
+    A string that contains names and associated selector's of the item values/information that need to be scraped. 
+    Format is : "name1:selector1,name2:selector2,name3:selector3". 
 
 
 <!-- ROADMAP -->
