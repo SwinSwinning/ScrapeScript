@@ -3,20 +3,31 @@ from scrapy.http import Request
 from scrapy.linkextractors import LinkExtractor
 from urllib.parse import urljoin
 from spiders.utils import get_base_url, xpath_or_css
+import scrapy.utils.misc
+import scrapy.core.scraper
 
 
 class ScrapeSpider(scrapy.Spider):
+    def warn_on_generator_with_return_value_stub(spider, callable):
+        pass
+
     name = 'scraper_spider'
+    scrapy.utils.misc.warn_on_generator_with_return_value = warn_on_generator_with_return_value_stub
+    scrapy.core.scraper.warn_on_generator_with_return_value = warn_on_generator_with_return_value_stub
 
     def __init__(self, *args, **kwargs):
         super(ScrapeSpider, self).__init__(*args, **kwargs)
         self.start_url = self.export_settings["start_url"]
         self.base_url = get_base_url(self.start_url)
         self.item_selector = self.export_settings['item_css']
-        self.contain_item_links = self.export_settings['item_links']
+        #self.contain_item_links = self.export_settings['item_links']
         self.attrs_to_scrape = self.export_settings['attributes_dict']
 
-    def start_requests(self):
+
+
+
+
+    async def start(self):
         yield scrapy.Request(f'{self.start_url}')
 
     def parse(self, response):
@@ -28,27 +39,28 @@ class ScrapeSpider(scrapy.Spider):
         yield scrapy.Request(combined)
 
         # This part handles the crawling of the individual items and if needed extract data from itempages.
-        if self.contain_item_links:
-            # if site has item links that need to be accessed, create LinkExtractor Object to help extract item links.
-            # ...determine whether the item selector is xpath or css.
-            link_extractor = LinkExtractor(restrict_xpaths=self.item_selector) if self.item_selector.startswith(
-                '/') else \
-                LinkExtractor(restrict_css=self.item_selector)
+ #       if self.contain_item_links:
 
-            for item_link in link_extractor.extract_links(response):  #..create requests for each item link found on page.
-                item = {}
-                request = Request(item_link.url,
-                                  callback=self.parse_page2,
-                                  cb_kwargs={ 'item': item })
-                yield request
+        # if site has item links that need to be accessed, create LinkExtractor Object to help extract item links.
+        # ...determine whether the item selector is xpath or css.
+        link_extractor = LinkExtractor(restrict_xpaths=self.item_selector) if self.item_selector.startswith(
+            '/') else \
+            LinkExtractor(restrict_css=self.item_selector)
 
-        else:  # If data to scrape is found on the same page...
-            rows = response.xpath(self.item_selector)
-            for row in rows:
-                item = {}
-                for k, v in self.attrs_to_scrape.items():
-                    item[k] = xpath_or_css(row, v).strip()
-                yield item
+        for item_link in link_extractor.extract_links(response):  #..create requests for each item link found on page.
+            item = {}
+            request = Request(item_link.url,
+                                callback=self.parse_page2,
+                                cb_kwargs={ 'item': item })
+            yield request
+
+#   #      else:  # If data to scrape is found on the same page...
+#             rows = response.xpath(self.item_selector)
+#             for row in rows:
+#                 item = {}
+#                 for k, v in self.attrs_to_scrape.items():
+#                     item[k] = xpath_or_css(row, v).strip()
+#                 yield item
 
 
     def parse_page2(self, response, item):

@@ -1,0 +1,58 @@
+# selectors.yaml  
+
+# template 
+
+# name: 
+#   start_url: the url where the scraper should start
+#   item_css: selector for each item to scrape.
+#   next_page_url: Selector for the next page url. Can be xpath or css selector, but should be able to extract the url of the next page to scrape.
+#   next_page_url_add: href or value. specify whether the next page url is in the href attribute of the selected element, or in the value attribute.
+#   attributes_dict:   All the attributes you wish to scrape from each item with their key and corresponding selectors.
+#     title: 'Xpath or Css Selector' 
+    # price: 'Xpath or Css Selector' 
+
+# Examples
+
+playstation: 
+  start_url: "https://store.playstation.com/nl-nl/pages/browse/1" 
+  item_links: true 
+  item_css: '//a[@class="psw-link psw-content-link"]' 
+  next_page_url: '//button[@data-qa="ems-sdk-grid#ems-sdk-top-paginator-root#next"]' 
+  next_page_url_add: "value" 
+  attributes_dict: 
+    title: "h1.psw-m-b-5" 
+    price: 'span[data-qa="mfeCtaMain#offer0#finalPrice"]' 
+
+guten: 
+  start_url: "https://www.gutenberg.org/ebooks/search/?sort_order=downloads" 
+  item_links: true 
+  item_css: '//li[@class="booklink"]//a[@class="link"]' 
+  next_page_url: '//*+[contains(concat( " ", @class, " " ), concat( " ", "booklink", " " ))]//*[contains(concat( " ", @class, " " ), concat( " ", "statusline", " " ))]//a' 
+  next_page_url_add: "href" 
+  attributes_dict: 
+    title: "//h1" 
+    language: '//*[(@id = "bibrec")]//tr[(((count(preceding-sibling::*) + 1) = 4) and parent::*)]//td' 
+
+books: 
+  start_url: "https://books.toscrape.com/catalogue/page-1.html" 
+  item_css: "//h3/a" 
+  next_page_url: '//li[@class="next"]/a' 
+  next_page_url_add: "href" 
+  attributes_dict: 
+    title: "//h1" 
+    price: '//div[@class="col-sm-6 product_main"]/p[@class="price_color"]'
+
+
+old_reddit: 
+  start_url: "https://old.reddit.com" 
+  #item_links: true 
+  item_css: "//*[@class='first']" 
+  next_page_url: "//span[@class='next-button']/a" 
+  next_page_url_add: "href" 
+  attributes_dict: 
+    title: "//p[@class='title']/a" 
+    upvotes: "//div[@class='score']/span[1]"
+    perc_upvotes: "//div[@class='score']"
+    comments: "//a[@class='bylink comments may-blank']"
+
+
